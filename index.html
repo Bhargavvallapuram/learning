@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Focused Video Viewer</title>
+
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #f4f6f8;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    .videos {
+        display: flex;
+        gap: 20px;
+    }
+
+    .video-card {
+        width: 280px;
+        cursor: pointer;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        background: #fff;
+        transition: transform 0.2s;
+    }
+
+    .video-card:hover {
+        transform: scale(1.05);
+    }
+
+    .video-card img {
+        width: 100%;
+        display: block;
+    }
+
+    .video-title {
+        padding: 10px;
+        text-align: center;
+        font-weight: bold;
+    }
+
+    /* Fullscreen modal */
+    .modal {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.9);
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+    }
+
+    .modal iframe {
+        width: 90%;
+        height: 90%;
+        border: none;
+    }
+
+    .close {
+        position: absolute;
+        top: 15px;
+        right: 25px;
+        font-size: 30px;
+        color: #fff;
+        cursor: pointer;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="videos">
+    <div class="video-card" onclick="openVideo('xwI5OBEnsZU')">
+        <img src="https://img.youtube.com/vi/VIDEO_ID_1/hqdefault.jpg">
+        <div class="video-title">Video 1</div>
+    </div>
+
+    <div class="video-card" onclick="openVideo('zA8guDqfv40')">
+        <img src="https://img.youtube.com/vi/VIDEO_ID_2/hqdefault.jpg">
+        <div class="video-title">Video 2</div>
+    </div>
+</div>
+
+<!-- Fullscreen Player -->
+<div class="modal" id="videoModal">
+    <span class="close" onclick="closeVideo()">×</span>
+    <iframe id="player"
+        allow="autoplay; encrypted-media; fullscreen"
+        allowfullscreen>
+    </iframe>
+</div>
+
+<script>
+function openVideo(videoId) {
+    const modal = document.getElementById("videoModal");
+    const player = document.getElementById("player");
+
+    player.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1&iv_load_policy=3`;
+    modal.style.display = "flex";
+}
+
+function closeVideo() {
+    const modal = document.getElementById("videoModal");
+    const player = document.getElementById("player");
+
+    player.src = "";
+    modal.style.display = "none";
+}
+</script>
+
+</body>
+</html>
